@@ -414,8 +414,12 @@ function ParserState() {
 
 			for ( let vi = 0, l = vertices.length - 1; vi < l; vi ++ ) {
 
-				this.addVertexLine( this.parseVertexIndex( vertices[ vi ], vLen ) );
-				this.addVertexLine( this.parseVertexIndex( vertices[ vi + 1 ], vLen ) );
+				const ia = this.parseVertexIndex( vertices[ vi ], vLen );
+				const ib = this.parseVertexIndex( vertices[ vi + 1 ], vLen );
+
+				this.addVertexLine( ia );
+				this.addVertexLine( ib );
+				this.addColor( ia, ib );
 
 			}
 
@@ -425,6 +429,8 @@ function ParserState() {
 				this.addUVLine( this.parseUVIndex( uvs[ uvi + 1 ], uvLen ) );
 
 			}
+
+			if ( uvs.length > 0 ) this.object.geometry.hasUVIndices = true;
 
 		}
 
